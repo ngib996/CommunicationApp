@@ -1,0 +1,20 @@
+<?php 
+// Attached jQuery UI Scripts
+$this->headScript()->appendFile('../js/jquery-2.1.1.js','text/javascript');
+$this->headScript()->appendFile('../js/jquery-ui.js','text/javascript');
+// Attach jQuery UI Styles
+$this->headLink()->appendStylesheet('../css/jquery-ui.css');
+// UI Initializer for buttons
+$this->headScript()->appendScript('$(function() {$("a.ui-button").button();
+									});', 'text/javascript');
+
+?>
+
+<h1>Welcome to Users Module</h1>
+<h2>Existing Users</h2>
+
+<a href="users/login" class='ui-button'>Login</a> 
+<hr>
+<h2>New Users</h2>
+
+<a href="users/register" class='ui-button'>New User Registration</a> 

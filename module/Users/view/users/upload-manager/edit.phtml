@@ -1,0 +1,97 @@
+
+<h3>Edit Upload Information</h3>
+
+<?php if ($this->error): ?>
+<p class="error">There were one or more isues with your submission.
+	Please correct them as indicated below.</p>
+<?php endif ?>
+<section class="upload">
+	<?php
+	$form = $this->form;
+	$form->prepare ();
+	$form->setAttribute ( 'action', $this->url ( 'users/upload-manager', array ('action' => 'processEdit' ) ) );
+	$form->setAttribute ( 'method', 'post' );
+	
+	echo $this->form ()->openTag ( $form );
+	?>
+	<dl class="zend_form">
+
+		<dt><?php echo $this->formLabel($form->get('label')); ?></dt>
+			<?php echo $this->formElement($form->get('id')); ?>
+			<?php echo $this->formElement($form->get('user_id')); ?>
+			<dd><?php
+			echo $this->formElement ( $form->get ( 'label' ) );
+			echo $this->formElementErrors ( $form->get ( 'label' ) );
+			?></dd>
+		<dt><?php echo $this->formLabel($form->get('filename')); ?></dt>
+		<dd><?php
+		echo $this->formElement ( $form->get ( 'filename' ) );
+		echo $this->formElementErrors ( $form->get ( 'filename' ) );
+		?></dd>
+		<dd><?php
+		echo $this->formElement ( $form->get ( 'submit' ) );
+		echo $this->formElementErrors ( $form->get ( 'submit' ) );
+		?></dd>
+
+	</dl>
+	<?php echo $this->form()->closeTag()?>
+</section>
+
+<section class="upload-sharing">
+	<h3>Upload Sharing</h3>
+	<table class="table">
+		<tr>
+			<th>Shared User</th>
+			<th>Actions</th>
+		</tr>
+	<?php foreach ($sharedUsers as $shareId => $userName) : ?>
+	<tr>
+			<td><?php echo $this->escapeHtml($userName);?></td>
+			<td><a
+				href="<?php echo $this->url ( 'users/upload-manager', array ('action' => 'deleteShare','id' => $shareId) );?>"
+				onclick="return confirm('Are you sure?')">Delete</a></td>
+			<!-- ,'upload_id' => $uploadId  -->
+		</tr>
+	<?php endforeach; ?>
+	</table>
+
+</section>
+
+<section class="upload-sharing">
+	<h3>Add Sharing</h3>
+	
+	<?php if ($this->error): ?>
+	<p class="error">There were one or more isues with your submission.
+		Please correct them as indicated below.</p>
+	<?php endif ?>
+	
+	<?php
+	
+	$uploadShareForm = $this->uploadShareForm;
+	$uploadShareForm->prepare ();
+	$uploadShareForm->setAttribute ( 'action', $this->url ( 'users/upload-manager', array ('action' => 'processAddShare' ) ) );
+	$uploadShareForm->setAttribute ( 'method', 'post' );
+	
+	echo $this->form ()->openTag ( $uploadShareForm );
+	?>
+	<?php echo $this->formElement($uploadShareForm->get('upload_id'));
+	      echo $this->formElementErrors($uploadShareForm->get('upload_id')); ?>
+	<table class="table">
+		<tr>
+		    <td>Choose User:</td>
+			<td><?php 
+		    echo $this->formElement($uploadShareForm->get('user_id'));
+		    echo $this->formElementErrors($uploadShareForm->get('user_id'));
+		?> </td>
+		</tr>
+		<tr>
+		    <td> &nbsp;</td>
+			<td><?php echo $this->formElement($uploadShareForm->get('submit'));
+		    	echo $this->formElementErrors($uploadShareForm->get('submit'));
+				?>
+			</td>
+		</tr>		
+	</table>
+	
+	<?php echo $this->form()->closeTag() ?>
+</section>
